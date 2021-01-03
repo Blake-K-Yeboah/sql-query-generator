@@ -7,16 +7,25 @@ function App() {
 
   const clearQuery = () => {
     setQuery('');
+    setQueryType(null);
+    setTableName('');
   }
 
   const [queryType, setQueryType] = useState(null);
+
+  const [tableName, setTableName] = useState('');
 
   const typeOfQueryHandler = (type) => {
     setQueryType(type);
 
     switch(type) {
+
       case 'select':
-        setQuery("<b>SELECT</b> * <b>FROM</b> `table_name`");
+        setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
+        break;
+
+      default: 
+        setQuery('')
     }
   }
 
@@ -31,6 +40,16 @@ function App() {
         <span className="query" dangerouslySetInnerHTML={{__html: query || "<i>Blank</i>"}}></span>
 
         <button className="btn primary" onClick={clearQuery}>Clear</button>
+
+      </section>
+
+      <section className="option-selector">
+
+        <h3 className="option-title">Table Name:</h3>
+
+        <input type="text" value={tableName} className="option-input" onChange={e => setTableName(e.target.value)} placeholder="Enter name of SQL table: " />
+
+        <button className="option-input-btn btn primary" onClick={typeOfQueryHandler.bind(this, queryType)}>Update</button>
 
       </section>
 
