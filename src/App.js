@@ -71,6 +71,14 @@ function App() {
 
       </section>
 
+      {queryType ? (
+        <section className="specific-option-section">
+          
+          <h2 className="title">Specific Options ({queryType})</h2>
+
+        </section>
+      ) : ''}
+      
     </div>
 
   );
