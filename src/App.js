@@ -15,6 +15,8 @@ function App() {
 
   const [tableName, setTableName] = useState('');
 
+  const [queryOptions, setQueryOptions] = useState({});
+
   const typeOfQueryHandler = (type) => {
     setQueryType(type);
 
@@ -22,11 +24,27 @@ function App() {
 
       case 'select':
         setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
+        setQueryOptions({ orderBy: [false, null, null], where: [false, null], whereNot: [false, null]});
         break;
 
       default: 
         setQuery('')
     }
+  }
+
+  const checkboxHandler = e => {
+
+    const name = e.target.name;
+    const checked = e.target.checked;
+
+    switch(name) {
+
+      case 'orderBy': 
+        setQueryOptions({ ...queryOptions, orderBy: [checked, null, null]});
+        checked ? setQuery(`${query} <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`) : setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
+
+    }
+
   }
 
   return (
@@ -75,6 +93,35 @@ function App() {
         <section className="specific-option-section">
           
           <h2 className="title">Specific Options ({queryType})</h2>
+
+          {queryType === 'select' ? (
+            <div className="option-grid">
+              
+              <div className="option-box">
+
+                <h4 className="option-box-title">ORDER BY <input type="checkbox" checked={queryOptions.orderBy[0]} name="orderBy" onChange={checkboxHandler} /></h4>
+
+                {queryOptions.orderBy[0] ? (
+                  <>
+
+                    <input className="option-input" placeholder="Field Name"/>
+                    <br/><br/>
+                    <button className="btn primary">ASC</button>
+                    <button className="btn primary">DESC</button>
+                  </>
+                ) : ''}
+              </div>
+
+              <div className="option-box">
+                <h4 className="option-box-title">WHERE</h4>
+              </div>
+
+              <div className="option-box">
+                <h4 className="option-box-title">WHERE NOT</h4>
+              </div>
+
+            </div>
+          ) : ''}
 
         </section>
       ) : ''}
