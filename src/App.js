@@ -47,7 +47,7 @@ function App() {
 
         <h3 className="option-title">Table Name:</h3>
 
-        <input type="text" value={tableName} className="option-input" onChange={e => setTableName(e.target.value)} placeholder="Enter name of SQL table: " />
+        <input type="text" value={tableName} className="option-input" onChange={e => setTableName(e.target.value)} placeholder="Enter name of SQL table:" />
 
         <button className="option-input-btn btn primary" onClick={typeOfQueryHandler.bind(this, queryType)}>Update</button>
 
