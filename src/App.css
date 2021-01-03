@@ -136,3 +136,9 @@ body {
     height: 40px;
     border-radius: 0px 5px 5px 0px;
 }
+
+.specific-option-section .title {
+    color: #666;
+    font-weight: 600;
+    margin-left: 10%;
+}
