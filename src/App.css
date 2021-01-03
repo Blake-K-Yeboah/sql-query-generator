@@ -142,3 +142,37 @@ body {
     font-weight: 600;
     margin-left: 10%;
 }
+
+.option-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1em;
+    height: 35vh;
+    width:80%;
+    margin: 1em 10%;
+}
+
+.option-box {
+    background: #f9f9f9;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.option-box-title {
+    color: #666;
+}
+
+.option-box-title input:checked {
+    filter: invert(1);
+}
+
+.option-box:nth-child(n + 2) {
+    background: #eee;
+}
+
+.option-box:first-of-type {
+    grid-row: 2 span;
+}
