@@ -14,7 +14,7 @@ body {
 
 .app {
     width: 50vw;
-    height: 75vh;
+    height: 90vh;
     background: #fff;
     position:absolute;
     top:50%;
@@ -46,7 +46,6 @@ body {
 
 .query-box .query {
     color: #666;
-    text-transform: uppercase;
     font-size: 1rem;
 }
 
@@ -93,6 +92,7 @@ body {
 .option-selector {
     width: 80%;
     margin: 2em 10%;
+    position:relative;
 }
 
 .option-selector .option-title {
@@ -112,4 +112,27 @@ body {
 .option-btn-group .btn.primary {
     border: 2px solid #ffbb00;
     border-radius: 5px;
+}
+
+.option-input {
+    width: 100%;
+    height: 40px;
+    padding: 12px;
+    background: #eee;
+    border-radius: 5px;
+    border: none;
+    margin-top: 1em;
+}
+
+.option-input:focus {
+    outline: none;
+    border-bottom: 2px solid #ffbb00;
+}
+
+.option-input-btn {
+    position:absolute;
+    right:0;
+    bottom: 0;
+    height: 40px;
+    border-radius: 0px 5px 5px 0px;
 }
