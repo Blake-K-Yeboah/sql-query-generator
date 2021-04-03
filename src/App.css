@@ -178,7 +178,7 @@ body {
     background: #eee;
 }
 
-.option-box:first-of-type {
+.option-box.tall {
     grid-row: 2 span;
 }
 
