@@ -26,7 +26,12 @@ function App() {
 
       case 'select':
         setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
-        setQueryOptions({ orderBy: [false, '', ''], where: [false, '', ''], whereNot: [false, '', '']});
+        setQueryOptions({ orderBy: [false, '', ''], where: [false, ''], whereNot: [false, '']});
+        break;
+
+      case 'delete':
+        setQuery(`<b>DELETE FROM</b> \`${tableName}\``);
+        setQueryOptions({ where: [false, ''], whereNot: [false, '']});
         break;
 
       default: 
@@ -45,6 +50,13 @@ function App() {
         setQueryOptions({ ...queryOptions, orderBy: [checked, '', '']});
         checked ? setQuery(`${query} <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`) : setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
         break;
+
+      case 'where': 
+        setQueryOptions({ ...queryOptions, where: [checked, '']});
+        checked ? setQuery(`${query} <b>WHERE</b> ${queryOptions.where[1]}`) : setQuery(queryType === 'select' ? `<b>SELECT</b> * <b>FROM</b> \`${tableName}\`` : queryType === 'delete' ? `<b>DELETE FROM</b> \`${tableName}\`` : '');
+        break;
+
+      // TODO: whereNot Handler
 
       default:
         console.log(name); 
@@ -108,7 +120,7 @@ function App() {
           {queryType === 'select' ? (
             <div className="option-grid">
               
-              <div className="option-box">
+              <div className="option-box tall">
 
                 <h4 className="option-box-title">ORDER BY <input type="checkbox" checked={queryOptions.orderBy[0]} name="orderBy" onChange={checkboxHandler} /></h4>
 
@@ -129,6 +141,22 @@ function App() {
 
               <div className="option-box">
                 <h4 className="option-box-title">WHERE NOT</h4>
+              </div>
+
+            </div>
+          ) : queryType === 'delete' ? (
+            <div className="option-grid">
+
+              <div className="option-box tall">
+
+                <h4 className="option-box-title">WHERE <input type="checkbox" checked={queryOptions.where[0]} name="where" onChange={checkboxHandler} /></h4>
+
+              </div>
+
+              <div className="option-box tall">
+
+                <h4 className="option-box-title">WHERE NOT <input type="checkbox" checked={queryOptions.whereNot[0]} name="whereNot" onChange={checkboxHandler} /></h4>
+
               </div>
 
             </div>
