@@ -17,6 +17,8 @@ function App() {
 
   const [queryOptions, setQueryOptions] = useState({});
 
+  const [fieldName, setFieldName] = useState('');
+
   const typeOfQueryHandler = (type) => {
     setQueryType(type);
 
@@ -42,9 +44,18 @@ function App() {
       case 'orderBy': 
         setQueryOptions({ ...queryOptions, orderBy: [checked, '', '']});
         checked ? setQuery(`${query} <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`) : setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
+        break;
+
+      default:
+        console.log(name); 
 
     }
 
+  }
+
+  const orderByHandler = (type) => {
+    setQueryOptions({ ...queryOptions, orderBy: [true, fieldName, type]});
+    setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\` <b>ORDER BY</b> ${fieldName} <b>${type}</b>`);
   }
 
   return (
@@ -104,13 +115,10 @@ function App() {
                 {queryOptions.orderBy[0] ? (
                   <>
 
-                    <input className="option-input" placeholder="Field Name" onChange={e => {
-                      setQueryOptions({ ...queryOptions, orderBy: [true, e.target.value, queryOptions.orderBy[2]]});
-                      setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\` <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`);
-                    }} value={queryOptions.orderBy[1]} />
+                    <input className="option-input" placeholder="Field Name" onChange={e => setFieldName(e.target.value)} value={fieldName} />
                     <br/><br/>
-                    <button className="btn primary-outline">ASC</button>
-                    <button className="btn primary-outline">DESC</button>
+                    <button className="btn primary-outline" onClick={orderByHandler.bind(this, 'ASC')}>ASC</button>
+                    <button className="btn primary-outline" onClick={orderByHandler.bind(this, 'DESC')}>DESC</button>
                   </>
                 ) : ''}
               </div>
