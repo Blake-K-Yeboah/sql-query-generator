@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #ffbb00;
+    --light-primary-color: #ffcc22;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +37,7 @@ body {
 }
 
 .page-title > span {
-    color: #ffbb00;
+    color: var(--primary-color);
 }
 
 .query-box {
@@ -61,23 +66,23 @@ body {
 }
 
 .btn.primary {
-    background:#ffbb00;
+    background:var(--primary-color);
     color: #fff;
 }
 
 .btn.primary:hover {
-    background: #ffcc22;
+    background: var(--light-primary-color);
 }
 
 .btn.primary-outline {
     background: #fff;
-    border: 2px solid #ffbb00;
-    color: #ffbb00;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
     border-radius: 5px;
 }
 
 .btn.primary-outline:hover {
-    background: #ffbb00;
+    background: var(--primary-color);
     color: #fff;
 }
 
@@ -110,7 +115,7 @@ body {
 }
 
 .option-btn-group .btn.primary {
-    border: 2px solid #ffbb00;
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
 }
 
@@ -126,7 +131,7 @@ body {
 
 .option-input:focus {
     outline: none;
-    border-bottom: 2px solid #ffbb00;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .option-input-btn {
