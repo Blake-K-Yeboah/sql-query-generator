@@ -176,3 +176,7 @@ body {
 .option-box:first-of-type {
     grid-row: 2 span;
 }
+
+.option-grid .option-box .btn:not(:first-of-type) {
+    margin-left: 12px;
+}

@@ -24,7 +24,7 @@ function App() {
 
       case 'select':
         setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
-        setQueryOptions({ orderBy: [false, null, null], where: [false, null], whereNot: [false, null]});
+        setQueryOptions({ orderBy: [false, '', ''], where: [false, '', ''], whereNot: [false, '', '']});
         break;
 
       default: 
@@ -40,7 +40,7 @@ function App() {
     switch(name) {
 
       case 'orderBy': 
-        setQueryOptions({ ...queryOptions, orderBy: [checked, null, null]});
+        setQueryOptions({ ...queryOptions, orderBy: [checked, '', '']});
         checked ? setQuery(`${query} <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`) : setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\``);
 
     }
@@ -67,7 +67,7 @@ function App() {
 
         <input type="text" value={tableName} className="option-input" onChange={e => setTableName(e.target.value)} placeholder="Enter name of SQL table:" />
 
-        <button className="option-input-btn btn primary" onClick={typeOfQueryHandler.bind(this, queryType)}>Update</button>
+        <button className="option-input-btn btn primary" onClick={() => setQuery(query.replace(/`.*`/, '`'+tableName+'`'))}>Update</button>
 
       </section>
 
@@ -104,10 +104,13 @@ function App() {
                 {queryOptions.orderBy[0] ? (
                   <>
 
-                    <input className="option-input" placeholder="Field Name"/>
+                    <input className="option-input" placeholder="Field Name" onChange={e => {
+                      setQueryOptions({ ...queryOptions, orderBy: [true, e.target.value, queryOptions.orderBy[2]]});
+                      setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\` <b>ORDER BY</b> ${queryOptions.orderBy[1]} ${queryOptions.orderBy[2]}`);
+                    }} value={queryOptions.orderBy[1]} />
                     <br/><br/>
-                    <button className="btn primary">ASC</button>
-                    <button className="btn primary">DESC</button>
+                    <button className="btn primary-outline">ASC</button>
+                    <button className="btn primary-outline">DESC</button>
                   </>
                 ) : ''}
               </div>
