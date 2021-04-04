@@ -19,6 +19,8 @@ function App() {
 
   const [fieldName, setFieldName] = useState('');
 
+  const [whereCondition, setWhereCondition] = useState('');
+
   const typeOfQueryHandler = (type) => {
     setQueryType(type);
 
@@ -53,7 +55,7 @@ function App() {
 
       case 'where': 
         setQueryOptions({ ...queryOptions, where: [checked, '']});
-        checked ? setQuery(`${query} <b>WHERE</b> ${queryOptions.where[1]}`) : setQuery(queryType === 'select' ? `<b>SELECT</b> * <b>FROM</b> \`${tableName}\`` : queryType === 'delete' ? `<b>DELETE FROM</b> \`${tableName}\`` : '');
+        checked ? setQuery(query.replace(/`.*`/, '`'+tableName+'` <b>WHERE</b> '+queryOptions.where[1])) : setQuery(queryType === 'select' ? `<b>SELECT</b> * <b>FROM</b> \`${tableName}\`` : queryType === 'delete' ? `<b>DELETE FROM</b> \`${tableName}\`` : '');
         break;
 
       // TODO: whereNot Handler
@@ -68,6 +70,11 @@ function App() {
   const orderByHandler = (type) => {
     setQueryOptions({ ...queryOptions, orderBy: [true, fieldName, type]});
     setQuery(`<b>SELECT</b> * <b>FROM</b> \`${tableName}\` <b>ORDER BY</b> ${fieldName} <b>${type}</b>`);
+  }
+
+  const updateWhereHandler = () => {
+    setQueryOptions({ ...queryOptions, where: [true, whereCondition]});
+    setQuery(query.replace(/`.*`/, '`'+tableName+'`  '+whereCondition));
   }
 
   return (
@@ -136,11 +143,17 @@ function App() {
               </div>
 
               <div className="option-box">
-                <h4 className="option-box-title">WHERE</h4>
+                <h4 className="option-box-title">WHERE <input type="checkbox" checked={queryOptions.where[0]} name="where" onChange={checkboxHandler} /></h4>
+
+                {queryOptions.where[0] ? (<>
+                  <input className="option-input light" placeholder="Condition" onChange={e => setWhereCondition(e.target.value)} value={whereCondition} />
+                  <br/><br/>
+                  <button className="btn primary-outline" onClick={updateWhereHandler}>UPDATE</button>
+                </>) : ''}
               </div>
 
               <div className="option-box">
-                <h4 className="option-box-title">WHERE NOT</h4>
+                <h4 className="option-box-title">WHERE NOT <input type="checkbox" checked={queryOptions.whereNot[0]} name="whereNot" onChange={checkboxHandler} /></h4>
               </div>
 
             </div>
